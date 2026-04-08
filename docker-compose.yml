@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: arca
+      POSTGRES_PASSWORD: arca
+      POSTGRES_DB: arca
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./arca-api
+    ports:
+      - "8000:8000"
+    env_file: ./arca-api/.env
+    depends_on:
+      - db
+    volumes:
+      - ./arca-api:/app
+      - uploads:/app/uploads
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  pgdata:
+  uploads:
