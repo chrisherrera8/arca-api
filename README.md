@@ -39,7 +39,7 @@ Edit `.env` and set the required values:
 From the repo root (where `docker-compose.yml` lives):
 
 ```bash
-podman-compose up -d postgres 
+podman-compose up -d postgres pgadmin
 ```
 
 This starts PostgreSQL on `localhost:5432` with the `arca` user and database already created.
